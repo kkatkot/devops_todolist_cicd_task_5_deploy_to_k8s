@@ -41,12 +41,12 @@ jobs:
         config: cluster.yml
 
     - name: Dry Run
-      run: helm upgrade --install --dry-run todoapp ./*.tgz --set image.tag=${{ inputs.version }}
+      run: helm upgrade --install --dry-run todoapp ./todoapp-*.tgz --set image.tag=${{ inputs.version }}
 
     - name: Deploy helm
       run: |
         helm upgrade --install --atomic --wait --timeout 3600s --debug todoapp ./*.tgz --set image.tag=${{ inputs.version }} \
-        -f {{ inputs.path-to-values }}
+        -f {{ inputs.path-to-values }} \
         --set todoapp.values.secrets.SECRET_KEY="${{secrets.SECRET_KEY}}" \
         --set todoapp.values.secrets.DB_NAME="${{secrets.DB_NAME}}" \
         --set todoapp.values.secrets.DB_USER="${{secrets.DB_USER}}" \
