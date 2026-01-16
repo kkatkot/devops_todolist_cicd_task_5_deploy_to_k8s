@@ -45,7 +45,7 @@ jobs:
 
     - name: Deploy helm
       run: |
-        helm upgrade --install --atomic --wait --timeout 3600s --debug todoapp ./*.tgz --set image.tag=${{ inputs.version }} \
+        helm upgrade --install --atomic --wait --timeout 3600s --debug todoapp ./todoapp-*.tgz \
         -f {{ inputs.path-to-values }} \
         --set todoapp.values.secrets.SECRET_KEY="${{secrets.SECRET_KEY}}" \
         --set todoapp.values.secrets.DB_NAME="${{secrets.DB_NAME}}" \
