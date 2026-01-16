@@ -41,11 +41,11 @@ jobs:
         config: cluster.yml
 
     - name: Dry Run
-      run: helm upgrade --install --dry-run todoapp ./todoapp-{{ inputs.version }}.tgz --set image.tag=${{ inputs.version }}
+      run: helm upgrade --install --dry-run todoapp ./todoapp-${{ inputs.version }}.tgz --set image.tag=${{ inputs.version }}
 
     - name: Deploy helm
       run: |
-        helm upgrade --install --atomic --wait --timeout 3600s --debug todoapp ./todoapp-{{ inputs.version }}.tgz --set image.tag=${{ inputs.version }} \
+        helm upgrade --install --atomic --wait --timeout 3600s --debug todoapp ./todoapp-${{ inputs.version }}.tgz --set image.tag=${{ inputs.version }} \
         -f {{ inputs.path-to-values }}
         --set todoapp.values.secrets.SECRET_KEY="${{secrets.SECRET_KEY}}" \
         --set todoapp.values.secrets.DB_NAME="${{secrets.DB_NAME}}" \
@@ -54,5 +54,5 @@ jobs:
         --set todoapp.values.secrets.DB_HOST="${{secrets.DB_HOST}}" \
         --set todoapp.values.mysql.secrets.MYSQL_ROOT_PASSWORD="${{secrets.MYSQL_ROOT_PASSWORD}}" \
         --set todoapp.values.mysql.secrets.MYSQL_USER="${{secrets.MYSQL_USER}}" \
-        --set todoapp.values.mysql.secrets.MYSQL_PASSWORD="${{secrets.MYSQL_PASSWORD}}" \
+        --set todoapp.values.mysql.secrets.MYSQL_PASSWORD="${{secrets.MYSQL_PASSWORD}}" 
 
