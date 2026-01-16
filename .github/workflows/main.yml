@@ -119,4 +119,10 @@ jobs:
         name: helm-package
         path: ./*.tgz
 
-  
+  deploy-development:
+    name: Deploy
+    uses: ./.github/workflows/kind_workflow.yml
+    with:
+      environment: development
+      version: ${{ github.sha }}
+      path-to-values: helm-charts/todoapp/values.yaml
