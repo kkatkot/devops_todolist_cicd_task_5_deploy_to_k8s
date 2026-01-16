@@ -122,7 +122,18 @@ jobs:
   deploy-development:
     name: Deploy
     uses: ./.github/workflows/kind_workflow.yml
+    needs: helm-ci
     with:
       environment: development
       version: ${{ github.sha }}
       path-to-values: helm-charts/todoapp/values.yaml
+
+  deploy-staging:
+    name: Deploy
+    uses: ./.github/workflows/kind_workflow.yml
+    needs: deploy-development
+    secrets: inherit
+    with:
+      environment: staging
+      version: ${{ github.sha }}
+      path-to-values: helm-charts/todoapp/values/stg.yaml
