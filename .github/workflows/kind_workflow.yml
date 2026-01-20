@@ -63,9 +63,7 @@ jobs:
         kubectl get pods -A
         kubectl describe pod -l app.kubernetes.io/name=todoapp --namespace todoapp
         kubectl logs -l app.kubernetes.io/name=todoapp --namespace todoapp --all-containers
-        kubectl -n todoapp describe pod todoapp-todoapp-576559b64f-jflxr
-        kubectl -n todoapp logs todoapp-todoapp-576559b64f-jflxr --all-containers --previous
-        kubectl -n todoapp logs todoapp-todoapp-576559b64f-mhjjw --all-containers --previous
+        kubectl -n todoapp describe pods
         kubectl -n todoapp get pods --show-labels
         kubectl -n todoapp describe pods
         kubectl -n todoapp logs -l app.kubernetes.io/instance=todoapp --all-containers --previous
