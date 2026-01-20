@@ -45,7 +45,7 @@ jobs:
 
     - name: Deploy helm
       run: |
-        helm upgrade --install --atomic --wait --timeout 3600s --debug todoapp ./downloaded-package/todoapp-*.tgz \
+        helm upgrade --install --atomic --debug todoapp ./downloaded-package/todoapp-*.tgz \
         -f ${{ inputs.path-to-values }} \
         --set todoapp.values.secrets.SECRET_KEY="${{secrets.SECRET_KEY}}" \
         --set todoapp.values.secrets.DB_NAME="${{secrets.DB_NAME}}" \
@@ -55,4 +55,12 @@ jobs:
         --set todoapp.values.mysql.secrets.MYSQL_ROOT_PASSWORD="${{secrets.MYSQL_ROOT_PASSWORD}}" \
         --set todoapp.values.mysql.secrets.MYSQL_USER="${{secrets.MYSQL_USER}}" \
         --set todoapp.values.mysql.secrets.MYSQL_PASSWORD="${{secrets.MYSQL_PASSWORD}}"
+
+
+    - name: Debug Kubernetes Resources
+      if: failure()
+      run: |
+        kubectl get pods -A
+        kubectl describe pod -l app.kubernetes.io/name=todoapp --namespace todoapp
+        kubectl logs -l app.kubernetes.io/name=todoapp --namespace todoapp --all-containers
 
