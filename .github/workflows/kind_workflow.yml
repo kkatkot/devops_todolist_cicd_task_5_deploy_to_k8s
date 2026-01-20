@@ -72,10 +72,16 @@ jobs:
         helm show values ./downloaded-package/todoapp-*.tgz | head -n 200
         if [ -z "${{ secrets.DB_HOST }}" ]; then echo "DB_HOST is EMPTY"; else echo "DB_HOST exists"; fi
         kubectl -n todoapp get secret todoapp-secret -o jsonpath="{.data.DB_HOST}" | base64 -d; echo
+        echo "Rendered values:"
+        helm get values todoapp -n todoapp -a || true
 
+        echo "Todoapp secret decoded:"
+        kubectl -n todoapp get secret todoapp-secret -o jsonpath='{.data.DB_USER}' | base64 -d; echo
+        kubectl -n todoapp get secret todoapp-secret -o jsonpath='{.data.DB_PASSWORD}' | base64 -d; echo
+        kubectl -n todoapp get secret todoapp-secret -o jsonpath='{.data.DB_NAME}' | base64 -d; echo
+        kubectl -n todoapp get secret todoapp-secret -o jsonpath='{.data.DB_HOST}' | base64 -d; echo
 
+        echo "MySQL service:"
+        kubectl -n mysql get svc
 
-
-    - name: Check Pods status
-      run: kubectl get pods -n todoapp
 
