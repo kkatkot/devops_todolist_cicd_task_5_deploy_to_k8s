@@ -13,9 +13,6 @@ on:
         default: helm-charts/todoapp/values.yaml
         type: string
 
-
-
-
 jobs:
   deploy-helm:
     name: Deploy Helm Chart to Kind Cluster
@@ -30,7 +27,7 @@ jobs:
       uses: actions/download-artifact@v4
       with:
           name: helm-package
-          path: .
+          path: ./downloaded-package
 
     - name: Set up Helm Cluster
       uses: azure/setup-helm@v4.2.0
@@ -41,12 +38,12 @@ jobs:
         config: cluster.yml
 
     - name: Dry Run
-      run: helm upgrade --install --dry-run todoapp ./todoapp-*.tgz --set image.tag=${{ inputs.version }}
+      run: helm upgrade --install --dry-run todoapp ./todoapp-*.tgz
 
     - name: Deploy helm
       run: |
-        helm upgrade --install --atomic --wait --timeout 3600s --debug todoapp ./todoapp-*.tgz \
-        -f {{ inputs.path-to-values }} \
+        helm upgrade --install --atomic --wait --timeout 3600s --debug todoapp ./downloaded-package/todoapp-*.tgz \
+        -f ${{ inputs.path-to-values }} \
         --set todoapp.values.secrets.SECRET_KEY="${{secrets.SECRET_KEY}}" \
         --set todoapp.values.secrets.DB_NAME="${{secrets.DB_NAME}}" \
         --set todoapp.values.secrets.DB_USER="${{secrets.DB_USER}}" \
