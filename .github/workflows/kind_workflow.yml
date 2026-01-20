@@ -69,6 +69,10 @@ jobs:
         kubectl -n todoapp logs -l app.kubernetes.io/instance=todoapp --all-containers --previous
         kubectl get pods -n todoapp
         kubectl -n todoapp logs -l app=todoapp --all-containers --previous
+        helm show values ./downloaded-package/todoapp-*.tgz | head -n 200
+        if [ -z "${{ secrets.DB_HOST }}" ]; then echo "DB_HOST is EMPTY"; else echo "DB_HOST exists"; fi
+        kubectl -n todoapp get secret todoapp-secret -o jsonpath="{.data.DB_HOST}" | base64 -d; echo
+
 
 
 
