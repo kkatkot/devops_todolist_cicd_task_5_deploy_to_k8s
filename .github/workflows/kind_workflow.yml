@@ -41,7 +41,7 @@ jobs:
       run: ls -R
 
     - name: Dry Run
-      run: helm upgrade --install --dry-run=client todoapp ./todoapp-*.tgz
+      run: helm upgrade --install --dry-run=client todoapp ./downloaded-package/todoapp-*.tgz
 
     - name: Deploy helm
       run: |
