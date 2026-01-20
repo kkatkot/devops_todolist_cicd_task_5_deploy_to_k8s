@@ -64,3 +64,6 @@ jobs:
         kubectl describe pod -l app.kubernetes.io/name=todoapp --namespace todoapp
         kubectl logs -l app.kubernetes.io/name=todoapp --namespace todoapp --all-containers
 
+    - name: Check Pods status
+      run: kubectl get pods -n todoapp
+
