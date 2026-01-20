@@ -45,7 +45,7 @@ jobs:
 
     - name: Deploy helm
       run: |
-        helm upgrade --install --debug todoapp ./downloaded-package/todoapp-*.tgz \
+        helm upgrade --install --debug --wait --timeout 180s todoapp ./downloaded-package/todoapp-*.tgz \
         -f ${{ inputs.path-to-values }} \
         --set todoapp.values.secrets.SECRET_KEY="${{secrets.SECRET_KEY}}" \
         --set todoapp.values.secrets.DB_NAME="${{secrets.DB_NAME}}" \
