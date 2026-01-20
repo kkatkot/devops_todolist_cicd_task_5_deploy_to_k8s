@@ -37,8 +37,11 @@ jobs:
       with:
         config: cluster.yml
 
+    - name: List files (Debug)
+      run: ls -R
+
     - name: Dry Run
-      run: helm upgrade --install --dry-run todoapp ./todoapp-*.tgz
+      run: helm upgrade --install --dry-run=client todoapp ./todoapp-*.tgz
 
     - name: Deploy helm
       run: |
