@@ -29,7 +29,7 @@ todoapp:
     # DB_HOST: mysql-0.mysql.mysql.svc.cluster.local
     SECRET_KEY: placeholder
     DB_NAME: placeholder
-    DB_USER: app_placeholderuser
+    DB_USER: placeholder
     DB_PASSWORD: placeholder
     DB_HOST: placeholder
 
