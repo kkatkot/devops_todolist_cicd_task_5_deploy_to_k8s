@@ -47,14 +47,14 @@ jobs:
       run: |
         helm upgrade --install --debug --wait --timeout 180s todoapp ./downloaded-package/todoapp-*.tgz \
         -f ${{ inputs.path-to-values }} \
-        --set-string todoapp.secrets.SECRET_KEY="${{secrets.SECRET_KEY}}" \
-        --set-string todoapp.secrets.DB_NAME="${{secrets.DB_NAME}}" \
-        --set-string todoapp.secrets.DB_USER="${{secrets.DB_USER}}" \
-        --set-string todoapp.secrets.DB_PASSWORD="${{secrets.DB_PASSWORD}}" \
-        --set-string todoapp.secrets.DB_HOST="${{secrets.DB_HOST}}" \
-        --set-string todoapp.mysql.secrets.MYSQL_ROOT_PASSWORD="${{secrets.MYSQL_ROOT_PASSWORD}}" \
-        --set-string todoapp.mysql.secrets.MYSQL_USER="${{secrets.MYSQL_USER}}" \
-        --set-string todoapp.mysql.secrets.MYSQL_PASSWORD="${{secrets.MYSQL_PASSWORD}}"
+        --set-string secrets.SECRET_KEY="${{secrets.SECRET_KEY}}" \
+        --set-string secrets.DB_NAME="${{secrets.DB_NAME}}" \
+        --set-string secrets.DB_USER="${{secrets.DB_USER}}" \
+        --set-string secrets.DB_PASSWORD="${{secrets.DB_PASSWORD}}" \
+        --set-string secrets.DB_HOST="${{secrets.DB_HOST}}" \
+        --set-string mysql.secrets.MYSQL_ROOT_PASSWORD="${{secrets.MYSQL_ROOT_PASSWORD}}" \
+        --set-string mysql.secrets.MYSQL_USER="${{secrets.MYSQL_USER}}" \
+        --set-string mysql.secrets.MYSQL_PASSWORD="${{secrets.MYSQL_PASSWORD}}"
 
 
     - name: Debug Kubernetes Resources
