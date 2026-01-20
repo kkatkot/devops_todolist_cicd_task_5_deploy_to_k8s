@@ -58,7 +58,7 @@ jobs:
 
 
     - name: Debug Kubernetes Resources
-      if: failure()
+      if: always()
       run: |
         kubectl get pods -A
         kubectl describe pod -l app.kubernetes.io/name=todoapp --namespace todoapp
