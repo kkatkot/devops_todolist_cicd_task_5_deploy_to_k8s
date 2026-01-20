@@ -67,6 +67,8 @@ jobs:
         kubectl -n todoapp get pods --show-labels
         kubectl -n todoapp describe pods
         kubectl -n todoapp logs -l app.kubernetes.io/instance=todoapp --all-containers --previous
+        kubectl get pods -n todoapp
+        kubectl -n todoapp logs -l app=todoapp --all-containers --previous
 
 
 
